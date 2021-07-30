@@ -8,6 +8,8 @@
 	* AutoShare
 	* AutoRecruit
 	* AutoDisband
+	
+	Version: 1.0
 
 ]]
 
