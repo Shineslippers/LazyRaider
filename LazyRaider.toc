@@ -2,6 +2,7 @@
 ## Title: LazyRaider
 ## Notes: A collection of tools for lazy raiders
 ## Author: xDD, Totori
+## Version: 1.0
 ## SavedVariables: LazyRaiderDB
 
 Libs\AceAddon-3.0\AceAddon-3.0.lua
