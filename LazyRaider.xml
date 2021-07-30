@@ -1,0 +1,706 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+ ..\..\FrameXML\UI.xsd">
+ 
+ 	<Frame name="LazyRaiderFrame" toplevel="true" parent="UIParent" hidden="false" frameStrata="DIALOG">
+ 		<Scripts>
+			<OnLoad>
+				LazyRaider_OnLoad()
+			</OnLoad>
+		</Scripts>
+	</Frame>
+	
+	
+	
+	<Frame name="LazyRaiderWindow"  toplevel="true" parent="UIParent" hidden="true" movable="true" enableMouse="true" clampedToScreen="true" enableKeyboard="true">
+		<Size>
+			<AbsDimension x="230" y="365" />
+		</Size>
+		<Anchors>
+			<Anchor point="CENTER">
+				<Offset>
+					<AbsDimension x="0" y="0"/>
+				</Offset>
+			</Anchor>
+		</Anchors>
+		<Scripts>
+			<OnLoad>
+				tinsert(UISpecialFrames, self:GetName())
+			</OnLoad>
+			<OnMouseDown>
+				self:StartMoving()
+			</OnMouseDown>
+			<OnMouseUp>
+				self:StopMovingOrSizing()
+			</OnMouseUp>
+		</Scripts>
+		<Backdrop edgeFile="Interface\Tooltips\UI-Tooltip-Border">
+			<EdgeSize>
+				<AbsValue val="16" />
+			</EdgeSize>
+			<BorderColor r=".3" g=".3" b=".3"/>
+		</Backdrop>
+
+	
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture file="Interface\ChatFrame\ChatFrameBackground">
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset>
+								<AbsDimension x="4" y="-4"/>
+							</Offset>
+						</Anchor>
+						<Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT">
+							<Offset>
+								<AbsDimension x="-4" y="4"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+					<Gradient orientation="VERTICAL">
+						<MinColor r="0.1" g="0.1" b="0.1" a=".5"/>
+						<MaxColor r=".25" g=".25" b=".25" a="1"/>
+					</Gradient>
+				</Texture>
+			</Layer>
+			
+			<Layer level="ARTWORK">
+				<Texture name="$parent_Head">
+					<Size>
+						<AbsDimension x="140" y="20"/>
+					</Size>				
+					<Anchors>
+						<Anchor point="TOP">
+							<Offset>
+								<AbsDimension x="0" y="0"/>
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="$parent_HeadText" inherits="GameFontNormal" text="LazyRaider">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="$parent">
+							<Offset>
+								<AbsDimension x="0" y="-10"/>
+							</Offset>
+						</Anchor>
+					</Anchors>	
+				</FontString>
+			</Layer>
+			
+			<Layer level="ARTWORK">
+				<FontString name="$parent_AutoInvite" inherits="GameFontHighlight" justifyH="LEFT" text="AutoInvite">
+					<Size>
+						<AbsDimension x="130" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent">
+							<Offset>
+								<AbsDimension x="20" y="-30" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			
+			<Layer level="ARTWORK">
+				<FontString name="$parent_BotMessage" inherits="GameFontHighlight" justifyH="LEFT" text="BotMessage">
+					<Size>
+						<AbsDimension x="130" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent">
+							<Offset>
+								<AbsDimension x="20" y="-50" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			
+			<Layer level="ARTWORK">
+				<FontString name="$parent_ShareQuest_First" inherits="GameFontHighlight" justifyH="LEFT" text="1st Quest for Share">
+					<Size>
+						<AbsDimension x="133" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent">
+							<Offset>
+								<AbsDimension x="53" y="-162" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			
+			<Layer level="ARTWORK">
+				<FontString name="$parent_ShareQuest_Second" inherits="GameFontHighlight" justifyH="LEFT" text="2nd Quest for Share">
+					<Size>
+						<AbsDimension x="133" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent_ShareQuest_First">
+							<Offset>
+								<AbsDimension x="0" y="-40" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			
+			<Layer level="ARTWORK">
+				<FontString name="$parent_EditBox_Message" inherits="GameFontHighlight" justifyH="LEFT" text="Message">
+					<Size>
+						<AbsDimension x="130" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent">
+							<Offset>
+								<AbsDimension x="82" y="-65" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			
+			<Layer level="ARTWORK">
+				<FontString name="$parent_Recruit" inherits="GameFontHighlight" justifyH="LEFT" text="Recruit">
+					<Size>
+						<AbsDimension x="120" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent">
+							<Offset>
+								<AbsDimension x="40" y="-113" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>	
+
+			<Layer level="ARTWORK">
+				<FontString name="$parent_ChangeRole" inherits="GameFontHighlight" justifyH="LEFT" text="Change Role">
+					<Size>
+						<AbsDimension x="120" y="15" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parent">
+							<Offset>
+								<AbsDimension x="20" y="-281" />
+							</Offset>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>	
+		</Layers>	
+
+		
+		<Frames>
+			<Button name="$parent_CloseButton" inherits="UIPanelCloseButton">
+				<Size>
+					<AbsDimension x="25" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOP" relativeTo="$parent" relativeFrom="TOPLEFT">
+						<Offset>
+							<AbsDimension x="98" y="-5" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						LazyRaiderWindow:Hide()
+					</OnClick>
+					<OnShow>
+						this:SetFrameLevel( (this:GetParent()):GetFrameLevel() + 1 );
+					</OnShow>						
+				</Scripts>
+			</Button>
+			
+			<Button name="$parent_StopRecruit" inherits="UIPanelButtonTemplate" text="Stop">
+				<Size>
+					<AbsDimension x="105" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOP" relativeTo="$parent" relativeFrom="TOPLEFT">
+						<Offset>
+							<AbsDimension x="55" y="-332" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						LazyRaider_Recruit("stop")
+					</OnClick>
+				</Scripts>
+			</Button>	
+			
+			<Button name="$parent_StartRecruit" inherits="UIPanelButtonTemplate" text="Start">
+				<Size>
+					<AbsDimension x="105" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="TOP" relativeTo="$parent" relativeFrom="TOPLEFT">
+						<Offset>
+							<AbsDimension x="-55" y="-332" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+						if LazyRaiderWindow_Recruit_ModBuffer ~= nil and LazyRaiderWindow_Recruit_ChannelBuffer ~= nil and LazyRaiderWindow_Recruit_IntervalBuffer ~= nil then
+							if LazyRaiderWindow_Recruit_ModBuffer == "SHARE" and LazyRaider_BotMessage and LazyRaider_AutoInvite then
+								if LazyRaider_SQFBuffer and LazyRaider_SQSBuffer then 
+									LazyRaider_Recruit(LazyRaiderWindow_Recruit_ModBuffer.." "..LazyRaiderWindow_Recruit_ChannelBuffer.." "..LazyRaiderWindow_Recruit_IntervalBuffer)
+								elseif LazyRaider_SQFBuffer then
+									LazyRaider_Recruit(LazyRaiderWindow_Recruit_ModBuffer.." "..LazyRaiderWindow_Recruit_ChannelBuffer.." "..LazyRaiderWindow_Recruit_IntervalBuffer)				
+								else
+									DEFAULT_CHAT_FRAME:AddMessage("You should choose quests for sharing")
+									return
+								end									
+							elseif LazyRaiderWindow_Recruit_ModBuffer == "SHARE" then		
+								DEFAULT_CHAT_FRAME:AddMessage("Need to enable AutoInvite and BotMessage. Don't forget to choose quests for share.")
+								return	
+							elseif LazyRaiderWindow_EditBox_Buffer ~= nil then
+								LazyRaider_Recruit(LazyRaiderWindow_Recruit_ModBuffer.." "..LazyRaiderWindow_Recruit_ChannelBuffer.." "..LazyRaiderWindow_Recruit_IntervalBuffer.." "..LazyRaiderWindow_EditBox_Buffer)
+							else
+								DEFAULT_CHAT_FRAME:AddMessage("You have to set Mod, Channel and Interval. Custom, D5, D10, D25 mods are require Message.")
+							end
+						else
+							DEFAULT_CHAT_FRAME:AddMessage("You have to set Mod, Channel and Interval. Custom, D5, D10, D25 mods are require Message.")
+						end
+					</OnClick>
+				</Scripts>
+			</Button>	
+			
+			<CheckButton name="$parent_AutoInvite_Check" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_AutoInvite" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="20" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+					if (self:GetChecked()) then
+						LazyRaider_SetAutoInvite("on")
+					else
+						LazyRaider_SetAutoInvite("off")
+					end
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			
+			<CheckButton name="$parent_BotMessage_Check" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_BotMessage" relativePoint="RIGHT">
+						<Offset>
+							<AbsDimension x="20" y="0" />
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnClick>
+					if (self:GetChecked()) then
+						LazyRaider_SetBotMessage("on")
+					else
+						LazyRaider_SetBotMessage("off")
+					end
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			
+			<EditBox name="$parent_EditBox" letters="256" historyLines="3" enableMouse="true" autoFocus="false">
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border"  tile="true">
+					<EdgeSize>
+						<AbsValue val="16" />
+					</EdgeSize>
+					<BorderColor r=".3" g=".3" b=".3"/>
+					<BackgroundInsets>
+						<AbsInset left="4" right="4" top="4" bottom="4" />
+					</BackgroundInsets>
+				</Backdrop>	
+				<Size>
+					<AbsDimension x="200" y="25"/>
+				</Size>
+ 				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_EditBox_Message" relativePoint="BOTTOM">
+            			<Offset x="-133" y="-12" />
+        			</Anchor>
+    			</Anchors>				
+				<FontString inherits="GameFontHighlight"/>
+				<Scripts>
+					<OnEscapePressed>
+						self:ClearFocus()
+					</OnEscapePressed>
+					<OnEnterPressed>
+						self:AddHistoryLine(self:GetText())
+						self:ClearFocus()
+					</OnEnterPressed>	
+					<OnTextChanged>
+						LazyRaiderWindow_EditBox_Buffer = LazyRaiderWindow_EditBox:GetText()
+						if LazyRaiderWindow_EditBox_Buffer == "" then LazyRaiderWindow_EditBox_Buffer = nil end
+					</OnTextChanged>
+				</Scripts>
+			</EditBox>
+					
+			<Frame name="$parent_ShareQuest_FirstMenu" inherits="UIDropDownMenuTemplate" hidden="true" enableMouse="false">
+				<Scripts>
+					<OnLoad>
+						UIDropDownMenu_Initialize(self, LazyRaider_ShareQuest_Menu, "MENU")
+					</OnLoad>
+				</Scripts>
+				<Size>
+					<AbsDimension x="10" y="10" />
+				</Size>	
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_ShareQuest_First" relativePoint="BOTTOM">
+		    			<Offset x="-105" y="-12" />	
+		   			</Anchor>
+		   		</Anchors>	
+			</Frame>	
+			
+			<Button name="$parent_ShareQuest_FirstButton" inherits="OptionsListButtonTemplate">				
+				<Size>
+					<AbsDimension x="200" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_ShareQuest_First" relativePoint="BOTTOM">
+		    			<Offset x="-105" y="-13" />	
+		   			</Anchor>
+		   		</Anchors>	
+				<ButtonText>
+					<Size>
+						<AbsDimension x="180" y="25" />
+					</Size>
+				</ButtonText>
+				<Scripts>
+					<OnLoad>
+					</OnLoad>	
+					<OnClick>
+						ToggleDropDownMenu(1, nil, LazyRaiderWindow_ShareQuest_FirstMenu, LazyRaiderWindow_ShareQuest_FirstButton, 0, 0)
+					</OnClick>				
+				</Scripts>
+			</Button>
+	
+			<Frame name="$parent_ShareQuest_SecondMenu" inherits="UIDropDownMenuTemplate" enableMouse="false" hidden="true">
+				<Scripts>
+					<OnLoad>
+						UIDropDownMenu_Initialize(self, LazyRaider_ShareQuest_Menu, "MENU")
+					</OnLoad>
+				</Scripts>
+				<Size>
+					<AbsDimension x="10" y="10" />
+				</Size>		
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_ShareQuest_First" relativePoint="BOTTOM">
+		    			<Offset x="-105" y="-12" />	
+		   			</Anchor>
+		   		</Anchors>	
+			</Frame>
+			
+			<Button name="$parent_ShareQuest_SecondButton" inherits="OptionsListButtonTemplate">				
+				<Size>
+					<AbsDimension x="200" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_ShareQuest_Second" relativePoint="BOTTOM">
+		    			<Offset x="-105" y="-13" />	
+		   			</Anchor>
+		   		</Anchors>
+				<ButtonText>
+					<Size>
+						<AbsDimension x="180" y="23" />
+					</Size>
+				</ButtonText>				
+				<Scripts>
+					<OnLoad>
+					</OnLoad>
+					<OnClick>
+						ToggleDropDownMenu(1, nil, LazyRaiderWindow_ShareQuest_SecondMenu, LazyRaiderWindow_ShareQuest_SecondButton, 0, 0)
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Frame name="$parent_Recruit_ModMenu" inherits="UIDropDownMenuTemplate" enableMouse="false" hidden="true">			
+				<Scripts>
+					<OnLoad>
+						UIDropDownMenu_Initialize(self, LazyRaiderWindow_Recruit_Mod, "MENU")
+					</OnLoad>
+				</Scripts>
+				<Size>
+					<AbsDimension x="95" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_Recruit" relativePoint="BOTTOM">
+    	       			<Offset x="22" y="7" />				
+					</Anchor>
+				</Anchors>								
+			</Frame>
+			
+			<Button name="$parent_Recruit_ModButton" inherits="UIPanelButtonGrayTemplate" text="Mod">				
+				<NormalFont style="GameFontNormal"/>
+				<Size>
+					<AbsDimension x="95" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_Recruit" relativePoint="BOTTOM">
+    	       			<Offset x="22" y="7" />				
+					</Anchor>
+				</Anchors>								
+				<Scripts>
+					<OnClick>
+						ToggleDropDownMenu(1, nil, LazyRaiderWindow_Recruit_ModMenu, LazyRaiderWindow_Recruit_ModButton, 0, 0)
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<Frame name="$parent_Recruit_ChannelMenu" inherits="UIDropDownMenuTemplate" enableMouse="false" hidden="true">
+				<Scripts>
+					<OnLoad>
+						UIDropDownMenu_Initialize(self, LazyRaiderWindow_Recruit_Channel, "MENU")
+					</OnLoad>
+				</Scripts>
+				<Size>
+					<AbsDimension x="95" y="23" />
+				</Size>		
+ 				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_Recruit" relativePoint="BOTTOM">
+    					<Offset x="-87" y="-18" />	
+   					</Anchor>
+   				</Anchors>
+			</Frame>
+			
+			<Button name="$parent_Recruit_ChannelButton" inherits="UIPanelButtonGrayTemplate" text="Channel">				
+				<NormalFont style="GameFontNormal"/>
+				<Size>
+					<AbsDimension x="95" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_Recruit" relativePoint="BOTTOM">
+    	       			<Offset x="-87" y="-18" />				
+					</Anchor>
+				</Anchors>								
+				<Scripts>
+					<OnClick>
+						ToggleDropDownMenu(1, nil, LazyRaiderWindow_Recruit_ChannelMenu, LazyRaiderWindow_Recruit_ChannelButton, 0, 0)
+					</OnClick>
+				</Scripts>
+			</Button>	
+
+			<Frame name="$parent_Recruit_IntervalMenu" inherits="UIDropDownMenuTemplate" enableMouse="false" hidden="true">
+				<Scripts>
+					<OnLoad>
+						UIDropDownMenu_Initialize(self, LazyRaiderWindow_Recruit_Interval, "MENU")
+					</OnLoad>
+				</Scripts>
+				<Size>
+					<AbsDimension x="95" y="23" />
+				</Size>		
+ 				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_Recruit" relativePoint="BOTTOM">
+    					<Offset x="22" y="-18" />	
+   					</Anchor>
+   				</Anchors>
+			</Frame>
+			
+			<Button name="$parent_Recruit_IntervalButton" inherits="UIPanelButtonGrayTemplate" text="Interval">				
+				<NormalFont style="GameFontNormal"/>
+				<Size>
+					<AbsDimension x="95" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_Recruit" relativePoint="BOTTOM">
+    	       			<Offset x="22" y="-18" />				
+					</Anchor>
+				</Anchors>									
+				<Scripts>
+					<OnClick>
+						ToggleDropDownMenu(1, nil, LazyRaiderWindow_Recruit_IntervalMenu, LazyRaiderWindow_Recruit_IntervalButton, 0, 0)
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="$parent_ShowRole_Button" inherits="UIPanelButtonGrayTemplate" text="Show Roles">				
+				<NormalFont style="GameFontNormal"/>
+				<Size>
+					<AbsDimension x="95" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_ChangeRole" relativePoint="BOTTOM">
+    	       			<Offset x="42" y="7" />				
+					</Anchor>
+				</Anchors>								
+				<Scripts>
+					<OnClick>
+						if LazyRaider_SetGroupRoles() then
+							LazyRaider_ShowRoles()
+						end
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Frame name="$parent_ChangeRole_NameMenu" inherits="UIDropDownMenuTemplate" enableMouse="false" hidden="true">
+				<Scripts>
+					<OnLoad>
+						UIDropDownMenu_Initialize(self, LazyRaider_ChangeRole_Name, "MENU")
+					</OnLoad>
+				</Scripts>
+				<Size>
+					<AbsDimension x="95" y="23" />
+				</Size>		
+ 				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_ChangeRole" relativePoint="BOTTOM">
+    					<Offset x="-67" y="-18" />	
+   					</Anchor>
+   				</Anchors>
+			</Frame>
+			
+			<Button name="$parent_ChangeRole_NameButton" inherits="UIPanelButtonGrayTemplate" text="Name">				
+				<NormalFont style="GameFontNormal"/>
+				<Size>
+					<AbsDimension x="95" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_ChangeRole" relativePoint="BOTTOM">
+    	       			<Offset x="-67" y="-18" />				
+					</Anchor>
+				</Anchors>								
+				<Scripts>
+					<OnClick>
+						ToggleDropDownMenu(1, nil, LazyRaiderWindow_ChangeRole_NameMenu, LazyRaiderWindow_ChangeRole_NameButton, 0, 0)
+					</OnClick>
+				</Scripts>
+			</Button>	
+
+			<Frame name="$parent_ChangeRole_RoleMenu" inherits="UIDropDownMenuTemplate" enableMouse="false" hidden="true">
+				<Scripts>
+					<OnLoad>
+						UIDropDownMenu_Initialize(self, LazyRaider_ChangeRole_Role, "MENU")
+					</OnLoad>
+				</Scripts>
+				<Size>
+					<AbsDimension x="95" y="23" />
+				</Size>		
+ 				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_ChangeRole" relativePoint="BOTTOM">
+    					<Offset x="42" y="-18" />	
+   					</Anchor>
+   				</Anchors>
+			</Frame>
+			
+			<Button name="$parent_ChangeRole_RoleButton" inherits="UIPanelButtonGrayTemplate" text="Role">				
+				<NormalFont style="GameFontNormal"/>
+				<Size>
+					<AbsDimension x="95" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_ChangeRole" relativePoint="BOTTOM">
+    	       			<Offset x="42" y="-18" />				
+					</Anchor>
+				</Anchors>									
+				<Scripts>
+					<OnClick>
+						ToggleDropDownMenu(1, nil, LazyRaiderWindow_ChangeRole_RoleMenu, LazyRaiderWindow_ChangeRole_RoleButton, 0, 0)
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Frame name="$parent_ShareQuest_FirstBox" enableMouse="false" hidden="false">
+				<Size>
+					<AbsDimension x="200" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_ShareQuest_First" relativePoint="BOTTOM">
+		    			<Offset x="-105" y="-12" />	
+		   			</Anchor>
+		   		</Anchors>					
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border"  tile="true">
+					<EdgeSize>
+						<AbsValue val="16" />
+					</EdgeSize>
+					<BorderColor r=".3" g=".3" b=".3"/>
+					<BackgroundInsets>
+						<AbsInset left="4" right="4" top="4" bottom="4" />
+					</BackgroundInsets>
+				</Backdrop>					
+			</Frame>	
+
+			<Frame name="$parent_ShareQuest_SecondBox" enableMouse="false" hidden="false">
+				<Size>
+					<AbsDimension x="200" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_ShareQuest_Second" relativePoint="BOTTOM">
+		    			<Offset x="-105" y="-12" />	
+		   			</Anchor>
+		   		</Anchors>					
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border"  tile="true">
+					<EdgeSize>
+						<AbsValue val="16" />
+					</EdgeSize>
+					<BorderColor r=".3" g=".3" b=".3"/>
+					<BackgroundInsets>
+						<AbsInset left="4" right="4" top="4" bottom="4" />
+					</BackgroundInsets>
+				</Backdrop>					
+			</Frame>		
+
+			<Button name="$parent_DisbandButton" inherits="UIPanelButtonGrayTemplate" text="Disband">				
+				<NormalFont style="GameFontNormal"/>
+				<Size>
+					<AbsDimension x="95" y="23" />
+				</Size>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent" relativePoint="BOTTOM">
+    	       			<Offset x="-102" y="106" />				
+					</Anchor>
+				</Anchors>								
+				<Scripts>
+					<OnClick>
+						LazyRaider_Disband(LazyRaiderWindow_EditBox_DisbandBuffer)
+					</OnClick>
+				</Scripts>
+			</Button>
+
+			<EditBox name="$parent_EditBox_Disband" letters="256" historyLines="3" enableMouse="true" autoFocus="false">
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border"  tile="true">
+					<EdgeSize>
+						<AbsValue val="16" />
+					</EdgeSize>
+					<BorderColor r=".3" g=".3" b=".3"/>
+					<BackgroundInsets>
+						<AbsInset left="4" right="4" top="4" bottom="4" />
+					</BackgroundInsets>
+				</Backdrop>	
+				<Size>
+					<AbsDimension x="95" y="25"/>
+				</Size>
+ 				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent_DisbandButton" relativePoint="BOTTOM">
+            			<Offset x="61" y="12" />
+        			</Anchor>
+    			</Anchors>				
+				<FontString inherits="GameFontHighlight"/>
+				<Scripts>
+					<OnEscapePressed>
+						self:ClearFocus()
+					</OnEscapePressed>
+					<OnEnterPressed>
+						self:AddHistoryLine(self:GetText())
+						self:ClearFocus()
+					</OnEnterPressed>	
+					<OnTextChanged>
+						LazyRaiderWindow_EditBox_DisbandBuffer = LazyRaiderWindow_EditBox_Disband:GetText()
+						if LazyRaiderWindow_EditBox_DisbandBuffer == "" then LazyRaiderWindow_EditBox_DisbandBuffer = nil end
+					</OnTextChanged>
+				</Scripts>
+			</EditBox>
+			
+		</Frames>
+		
+		
+	</Frame>
+			
+</Ui> 
